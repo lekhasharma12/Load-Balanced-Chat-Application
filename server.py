@@ -114,10 +114,10 @@ def clientside():
 			else:
 				print("clientside add::no servers active")
 
-		if flagForConnectedPrimaryBEserver == 1 and count==1:
+		if flagForConnectedPrimaryBEserver == 1:
 			data="message!"+str(address)+"!"+data.decode()
 			socket1.sendto(data.encode(),(connectedPrimaryBEserver1, BEPort1))
-		elif flagForconnectedSecondaryBEserver == 1 and count==2:
+		elif flagForconnectedSecondaryBEserver == 1:
 			data="message!"+str(address)+"!"+data.decode()
 			socket1.sendto(data.encode(),(connectedSecondaryBEserver1, BEPort3))
 		else:
