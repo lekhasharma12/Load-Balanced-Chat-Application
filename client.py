@@ -12,7 +12,7 @@ server=input('Please enter IP address to connect: ') #IP Address of the FE Serve
 data = ''
 data = data.ljust(16,'^')
 
-Port = 5002 #Port number of the Front End Server
+Port = 7002 #Port number of the Front End Server
 socket1 = socket(AF_INET, SOCK_DGRAM)
 socket1.sendto(data.encode(), (server, Port))
 print("----------------Chat Begins---------------------")
@@ -23,7 +23,7 @@ def transmit():
 		if data == "EXIT" or data == "exit":
 			print("\nExiting chat")
 			print("----------------------------------------------")
-			# second.stop()
+			second.stop()
 			socket1.close()
 			break
 
@@ -39,7 +39,7 @@ def get():
 		if new_data2 ==  "EXIT" or new_data2 == "exit":
 			print("\nExiting chat")
 			print("----------------------------------------------")
-			# first.stop()
+			first.stop()
 			socket1.close()
 			break
 

@@ -4,13 +4,13 @@ from socket import *
 import threading
 
 Host = '172.16.31.76'
-Port1 = 4000
+Port1 = 7000
 #Port Number of Back End Server 1..4
-BEPort1 = 4001
-BEPort2 = 4005
-BEPort3 = 4003
-BEPort4 = 4004
-Port3=4002
+BEPort1 = 7001
+BEPort2 = 7005
+BEPort3 = 7003
+BEPort4 = 7004
+Port3=7002
 
 count = 0
 
@@ -97,13 +97,12 @@ def clientside():
 
 	while 1:
 		data, address = socket2.recvfrom(2048)
-   
+		count += 1
 		if (address not in connectedClients):
 			print("New Client is", address)
 			connectedClients.append(address)
-			count += 1
 			update_data="add!"+str(address)
-			if flagForConnectedPrimaryBEserver == 1 and flagForconnectedSecondaryBEserver == 1 and count==1:
+			if flagForConnectedPrimaryBEserver == 1 and flagForconnectedSecondaryBEserver == 1:
 				print('y')
 				socket1.sendto(update_data.encode(),(connectedPrimaryBEserver1, BEPort1))
 				socket1.sendto(update_data.encode(),(connectedSecondaryBEserver1, BEPort3))
@@ -114,10 +113,11 @@ def clientside():
 			else:
 				print("clientside add::no servers active")
 
-		if flagForConnectedPrimaryBEserver == 1:
+		if flagForConnectedPrimaryBEserver == 1  and count < 10:
 			data="message!"+str(address)+"!"+data.decode()
+			count +=1
 			socket1.sendto(data.encode(),(connectedPrimaryBEserver1, BEPort1))
-		elif flagForconnectedSecondaryBEserver == 1:
+		elif flagForconnectedSecondaryBEserver == 1 and count >= 10:
 			data="message!"+str(address)+"!"+data.decode()
 			socket1.sendto(data.encode(),(connectedSecondaryBEserver1, BEPort3))
 		else:

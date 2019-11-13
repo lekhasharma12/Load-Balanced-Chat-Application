@@ -3,7 +3,7 @@
 from socket import *
 
 Host = '172.16.31.76'
-Port = 4001
+Port = 7003
 # Port = 4002
 socket1 = socket(AF_INET, SOCK_DGRAM)
 socket1.bind((Host,Port))
